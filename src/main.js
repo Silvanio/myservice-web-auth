@@ -20,6 +20,7 @@ import Checkbox from "primevue/checkbox";
 import {Vuelidate} from 'vuelidate'
 
 
+
 Vue.component('Button', Button);
 Vue.component('InputText', InputText);
 Vue.component('Breadcrumb', Breadcrumb);
@@ -29,6 +30,7 @@ Vue.component('Password', Password);
 Vue.component('Checkbox', Checkbox);
 Vue.use(Vuelidate)
 Vue.use(ToastService);
+
 
 Vue.config.productionTip = false
 

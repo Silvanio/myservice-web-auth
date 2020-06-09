@@ -2,25 +2,33 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/pages/Home.vue'
 import Login from '../Login.vue'
+import About from "../views/pages/About";
 import EmptyPage from "../views/pages/EmptyPage";
 import Base from "../Base";
+import AuthStorage from "../service/arq/auth-storage";
 
 
 const ifNotAuthenticated = (to, from, next) => {
-
-    if (localStorage.getItem('token') == null || localStorage.getItem('token') == '') {
-        next('/login');
-        return
+    console.log("ifNotAuthenticated");
+    const accessToken = AuthStorage.getStorage("access_token");
+    console.log(accessToken);
+    if (accessToken) {
+        next("/empty")
+    } else {
+        next();
     }
-    next()
 }
 
 const ifAuthenticated = (to, from, next) => {
-    if (localStorage.getItem('token') != null && localStorage.getItem('token') != '') {
-        next('/empty');
-        return
+    console.log("ifAuthenticated");
+    const accessToken = AuthStorage.getStorage("access_token");
+    console.log(accessToken);
+    if (accessToken) {
+        next()
+    } else {
+        next('/login');
     }
-    next()
+
 }
 
 Vue.use(VueRouter)
@@ -35,19 +43,19 @@ const routes = [
                 path: '',
                 name: 'Home',
                 component: Home,
-                beforeEnter: ifNotAuthenticated,
+                beforeEnter: ifAuthenticated,
             },
             {
                 path: 'about',
                 name: 'About',
-                component: () => import('../views/pages/About.vue'),
-                beforeEnter: ifNotAuthenticated,
+                component: About,
+                beforeEnter: ifAuthenticated,
             },
             {
                 path: 'empty',
                 name: 'Empty',
                 component: EmptyPage,
-                beforeEnter: ifNotAuthenticated,
+                beforeEnter: ifAuthenticated,
             }
 
         ]
@@ -56,7 +64,7 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login,
-        beforeEnter: ifAuthenticated,
+        beforeEnter: ifNotAuthenticated,
     },
 ]
 

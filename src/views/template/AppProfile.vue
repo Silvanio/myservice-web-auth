@@ -16,7 +16,7 @@
                     <button class="p-link"><i class="pi pi-fw pi-inbox"></i><span>Notifications</span><span class="menuitem-badge">2</span></button>
                 </li>
                 <li>
-                    <button class="p-link" too @click="logout"><i class="pi pi-fw pi-power-off" ></i><span>Logout</span></button>
+                    <button class="p-link" too @click="logout"><i class="pi pi-fw pi-power-off"></i><span>Logout</span></button>
                 </li>
             </ul>
         </transition>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+    import AuthStorage from "../../service/arq/auth-storage";
+
     export default {
         data() {
             return {
@@ -37,8 +39,9 @@
                 event.preventDefault();
             },
             logout() {
-                localStorage.setItem('token', '');
-                this.$router.push('/login');
+                AuthStorage.removeItem("access_token");
+                AuthStorage.removeItem("refresh_token");
+                this.$router.push("/login");
             },
         }
     }
