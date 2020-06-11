@@ -4,7 +4,7 @@
             <img src="assets/layout/images/profile.png" alt=""/>
         </div>
         <button class="p-link layout-profile-link" @click="onClick">
-            <span class="username">Claire Williams</span>
+            <span class="username">{{ this.user.name }}</span>
             <i class="pi pi-fw pi-cog"></i>
         </button>
         <transition name="layout-submenu-wrapper">
@@ -25,9 +25,14 @@
 </template>
 
 <script>
-    import AuthStorage from "../../service/arq/auth-storage";
+    import LoginService from "../../service/login-service";
+
+    const loginService = new LoginService();
 
     export default {
+        props: {
+            user: Object
+        },
         data() {
             return {
                 expanded: false
@@ -39,8 +44,7 @@
                 event.preventDefault();
             },
             logout() {
-                AuthStorage.removeItem("access_token");
-                AuthStorage.removeItem("refresh_token");
+                loginService.logout();
                 this.$router.push("/login");
             },
         }

@@ -2,7 +2,7 @@ module.exports = {
     devServer: {
         proxy: {
             '/auth': {
-                target: 'http://localhost:9092'
+                target: 'http://192.168.1.141:9092'
             }
         }
     }

@@ -10,7 +10,7 @@
                     </router-link>
                 </div>
 
-                <AppProfile/>
+                <AppProfile :user="this.userLogged"/>
                 <AppMenu :model="menu" @menuitem-click="onMenuItemClick"/>
             </div>
         </transition>
@@ -25,19 +25,29 @@
 
 <script>
     import AppTopBar from './views/template/AppTopbar.vue';
-    import AppProfile from './views/template//AppProfile.vue';
+    import AppProfile from './views/template/AppProfile.vue';
     import AppMenu from './views/template/AppMenu.vue';
     import AppFooter from './views/template/AppFooter.vue';
+    import UserService from "./service/user-service";
+
+    const userService = new UserService();
 
     export default {
+        created: function () {
+            console.log("Vamos la de novo buscar o user.")
+            userService.getCurrentUserInfo().then((response) => {
+                this.userLogged = response;
+            });
+        },
         data() {
             return {
                 layoutMode: 'static',
-                layoutColorMode: 'light',
+                layoutColorMode: 'dark',
                 staticMenuInactive: false,
                 overlayMenuActive: false,
                 mobileMenuActive: false,
-                title: "Modulo",
+                userLogged: {},
+                title: "Acessos",
                 menu: [
                     {label: 'Dashboard', icon: 'pi pi-fw pi-chart-line', to: '/'},
                     {label: 'About', icon: 'pi pi-fw pi-info-circle', to: '/about'},
@@ -47,13 +57,13 @@
                             {label: 'Empty Page', icon: 'pi pi-fw pi-ticket', to: '/empty'}
                         ]
                     },
-                    // {
-                    //  label: 'Menu Colors', icon: 'pi pi-fw pi-align-left',
-                    // items: [
-                    //    {label: 'Dark', icon: 'pi pi-fw pi-bars', command: () => this.layoutColorMode = 'dark'},
-                    //   {label: 'Light', icon: 'pi pi-fw pi-bars', command: () => this.layoutColorMode = 'light'}
-                    //]
-                    // },
+                    {
+                        label: 'Menu Colors', icon: 'pi pi-fw pi-align-left',
+                        items: [
+                            {label: 'Dark', icon: 'pi pi-fw pi-bars', command: () => this.layoutColorMode = 'dark'},
+                            {label: 'Light', icon: 'pi pi-fw pi-bars', command: () => this.layoutColorMode = 'light'}
+                        ]
+                    },
                 ]
             }
         },
@@ -154,5 +164,8 @@
     .p-toast.p-toast-topright {
         z-index: 1000;
         top: 70px;
+    }
+    .p-toast {
+        width: 22.4rem !important;
     }
 </style>

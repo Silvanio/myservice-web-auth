@@ -1,14 +1,24 @@
 import axios from 'axios'
+import AuthStorage from "./auth-storage";
 
 
 let standard = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
     timeout: 100000,
+    headers: {
+        'Content-Type': 'application/json;charset=UTF-8'
+    },
     transformResponse: [
         function (data) {
             return data
         }
     ]
+});
+
+
+standard.interceptors.request.use((config) => {
+    config.headers.common['Authorization'] = "Bearer "+AuthStorage.getStorage("access_token");
+    return config
 });
 
 export default class Http {

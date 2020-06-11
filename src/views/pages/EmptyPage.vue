@@ -30,7 +30,7 @@ export default {
 	},
 	methods: {
 		showSuccess(){
-			this.$toast.add({severity:'success', summary: 'Mensagem Sucesso', detail:'Botão Clicado', life: 2000});
+			this.$toast.add({severity:'success', summary: 'Mensagem Sucesso', detail:'Botão Clicado', life: 200000});
 		},
 		showWarning(){
 			this.$toast.add({severity:'warn', summary: 'Mensagem warn', detail:'Botão Clicado', life: 2000});
