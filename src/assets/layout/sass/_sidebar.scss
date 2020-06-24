@@ -16,11 +16,11 @@
     }
 
     .layout-title {
-        height: 60px;
+        height: 50px;
         text-align: center;
         background-color: $menuitemActiveColor;
         color: $menuitemActiveColor;
-        padding: 1.5em 1.5em 0em 1.5em;
+        padding: 1.0em 1.5em 0em 1.5em !important;
     }
 
     .menuitem-badge {

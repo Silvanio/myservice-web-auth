@@ -1,17 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/pages/Home.vue'
-import Login from '../Login.vue'
+import Login from '../views/pages/Login.vue'
 import About from "../views/pages/About";
 import EmptyPage from "../views/pages/EmptyPage";
-import Base from "../Base";
-import AuthStorage from "../service/arq/auth-storage";
+import Base from "../views/template/Base";
+import AuthStorage from '../utils/auth-storage';
+import MyAccount from "../views/pages/MyAccount";
 
 
 const ifNotAuthenticated = (to, from, next) => {
-    console.log("ifNotAuthenticated");
     const accessToken = AuthStorage.getStorage("access_token");
-    console.log(accessToken);
     if (accessToken) {
         next("/empty")
     } else {
@@ -20,9 +19,7 @@ const ifNotAuthenticated = (to, from, next) => {
 }
 
 const ifAuthenticated = (to, from, next) => {
-    console.log("ifAuthenticated");
     const accessToken = AuthStorage.getStorage("access_token");
-    console.log(accessToken);
     if (accessToken) {
         next()
     } else {
@@ -55,6 +52,12 @@ const routes = [
                 path: 'empty',
                 name: 'Empty',
                 component: EmptyPage,
+                beforeEnter: ifAuthenticated,
+            },
+            {
+                path: 'account',
+                name: 'Account',
+                component: MyAccount,
                 beforeEnter: ifAuthenticated,
             }
 

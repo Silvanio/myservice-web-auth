@@ -1,7 +1,11 @@
+/**
+ * @property {string} access_token
+ * @property {string} refresh_token
+ */
 export default class AuthStorage {
 
     static setStorage = (remember, key, value) => {
-        if (remember) {
+        if (remember && (remember === true || remember === "true"  )) {
             localStorage.setItem(key, value);
         } else {
             sessionStorage.setItem(key, value);
@@ -14,9 +18,9 @@ export default class AuthStorage {
     }
 
     static getStorage = (key) => {
-        let access  = sessionStorage.getItem(key);
-        if(access){
-         return access;
+        let access = sessionStorage.getItem(key);
+        if (access) {
+            return access;
         }
         access = localStorage.getItem(key);
         return access;

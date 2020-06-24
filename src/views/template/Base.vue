@@ -1,16 +1,17 @@
 <template>
     <div :class="containerClass" @click="onWrapperClick">
-        <AppTopBar @menu-toggle="onMenuToggle"/>
+
+        <AppTopBar @menu-toggle="onMenuToggle"  @menu-close="onMenuClose" />
 
         <transition name="layout-sidebar">
             <div :class="sidebarClass" @click="onSidebarClick" v-show="isSidebarVisible()">
                 <div class="layout-title">
                     <router-link to="/">
-                        <h1 style="color: #eeeeee">{{ title }}</h1>
+                        <h1 class="title">{{$t('lbl_app_title')}}</h1>
                     </router-link>
                 </div>
 
-                <AppProfile :user="this.userLogged"/>
+                <AppProfile/>
                 <AppMenu :model="menu" @menuitem-click="onMenuItemClick"/>
             </div>
         </transition>
@@ -21,28 +22,40 @@
 
         <AppFooter/>
     </div>
+
 </template>
 
 <script>
-    import AppTopBar from './views/template/AppTopbar.vue';
-    import AppProfile from './views/template/AppProfile.vue';
-    import AppMenu from './views/template/AppMenu.vue';
-    import AppFooter from './views/template/AppFooter.vue';
-    import UserService from "./service/user-service";
+
+    import AppTopBar from './AppTopbar';
+    import AppProfile from './AppProfile';
+    import AppMenu from './AppMenu';
+    import AppFooter from './AppFooter';
+    import Vue from "vue";
+    import UserService from "../../service/user-service";
 
     const userService = new UserService();
 
     export default {
+        components: {
+            'AppTopBar': AppTopBar,
+            'AppProfile': AppProfile,
+            'AppMenu': AppMenu,
+            'AppFooter': AppFooter,
+
+        },
+        beforeCreate: function () {
+            document.body.className = 'home';
+        },
         created: function () {
-            console.log("Vamos la de novo buscar o user.")
             userService.getCurrentUserInfo().then((response) => {
-                this.userLogged = response;
+                Vue.prototype.$mymutations.setUserLogged(response);
             });
         },
         data() {
             return {
                 layoutMode: 'static',
-                layoutColorMode: 'dark',
+                layoutColorMode: 'light',
                 staticMenuInactive: false,
                 overlayMenuActive: false,
                 mobileMenuActive: false,
@@ -76,6 +89,22 @@
                 }
                 this.menuClick = false;
             },
+
+            onMenuClose() {
+                this.menuClick = true;
+
+                if (this.isDesktop()) {
+                    if (this.layoutMode === 'overlay') {
+                        this.overlayMenuActive = true;
+                    } else if (this.layoutMode === 'static') {
+                        this.staticMenuInactive = true;
+                    }
+                } else {
+                    this.mobileMenuActive = true;
+                }
+                event.preventDefault();
+            },
+
             onMenuToggle() {
                 this.menuClick = true;
 
@@ -151,12 +180,7 @@
             else
                 this.removeClass(document.body, 'body-overflow-hidden');
         },
-        components: {
-            'AppTopBar': AppTopBar,
-            'AppProfile': AppProfile,
-            'AppMenu': AppMenu,
-            'AppFooter': AppFooter,
-        }
+
     }
 </script>
 
@@ -165,7 +189,20 @@
         z-index: 1000;
         top: 70px;
     }
+
     .p-toast {
-        width: 22.4rem !important;
+        width: 20.4rem !important;
     }
+
+    .p-toast.p-toast-topright {
+        z-index: 1000 !important;
+        top: 10px !important;
+        right: 10px !important;
+    }
+
+    .title {
+        color: #eeeeee !important;
+        margin: -7px !important;
+    }
+
 </style>

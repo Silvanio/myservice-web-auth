@@ -14,8 +14,4 @@ export default class Service extends Http {
             console.log(error)
         });
     }
-
-    update(data) {
-        return this.post("update", data);
-    }
 }

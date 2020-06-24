@@ -1,6 +1,8 @@
-import Service from "./arq/service";
+import Service from "./service";
+import AuthStorage from "../utils/auth-storage";
 import axios from "axios";
-import AuthStorage from "./arq/auth-storage";
+import Vue from "vue";
+
 
 let configLogin = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
@@ -16,37 +18,44 @@ let configLogin = axios.create({
 });
 
 configLogin.interceptors.request.use((config) => {
-    config.headers.common['Authorization'] = "Basic bXlzZXJ2aWNlYXV0aDokMmEkMTAkcDlQazBmUU5BUVNlc0k0dnV2S0EwT1phbkREMg=="
+    config.headers.common['Authorization'] = process.env.VUE_APP_BASIC;
     return config
 });
 
-configLogin.interceptors.response.use(response => {
-    return response
-}, error => {
-    if (error.response.status == 401) {
-        console.log(error.response.data);
-        let $refresh = localStorage.refresh_token;
-        if ($refresh) {
-            console.log($refresh);
-        }
-    } else {
-        console.log(error.response.data);
+configLogin.interceptors.response.use(response => response, function (error) {
+    if(error.response.status == 503){
+        Vue.prototype.$msgbus.addMessageError("msg_error_503", "")
     }
-    return error;
+    throw error
 });
 
 export default class LoginService extends Service {
     constructor() {
         super("/auth", configLogin);
     }
+
     login(user) {
         let username = user.company+"-"+user.name;
-        const queryString = "oauth/token?grant_type=password&username=" + username + "&password=" + user.password
-        return this.post(queryString)
+        const queryString = "oauth/token?grant_type=password&username=" + username + "&password=" + user.password;
+        return this.post({resource:queryString})
     }
+
+    refreshToken() {
+        let refreshToken = AuthStorage.getStorage("refresh_token");
+        const queryString = "oauth/token?grant_type=refresh_token&refresh_token="+refreshToken;
+        return this.post({resource:queryString})
+    }
+
+    sendMailForgotPassword(user) {
+        let username = user.company+"/"+user.name;
+        const queryString = "/forgotPassword/" + username;
+        return this.post({resource:queryString})
+    }
+
     logout(){
         AuthStorage.removeItem("access_token");
         AuthStorage.removeItem("refresh_token");
-        AuthStorage.removeItem("auth_user");
+        AuthStorage.removeItem("remember_token");
     }
+
 }
