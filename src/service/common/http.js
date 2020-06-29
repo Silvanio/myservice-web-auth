@@ -1,6 +1,6 @@
 import axios from 'axios'
-import AuthStorage from "../utils/auth-storage";
-import LoginService from "./login-service";
+import AuthStorage from "../../utils/auth-storage";
+import LoginService from "../login-service";
 import Vue from "vue";
 
 
@@ -27,6 +27,11 @@ standard.interceptors.response.use(response => {
     return response
 }, error => {
     const {response: {status, config}} = error
+
+    if (error.response.status == 500) {
+        Vue.prototype.$msgbus.addMessageWarn("msg_error_500", "")
+    }
+
     if (error.response.status == 503) {
         Vue.prototype.$msgbus.addMessageError("msg_error_503", "")
     }

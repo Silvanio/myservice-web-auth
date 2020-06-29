@@ -2,8 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import 'primevue/resources/themes/saga-blue/theme.css';
-import './assets/layout/theme.css';
+
+import 'primevue/resources/themes/nova-light/theme.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
@@ -29,6 +29,9 @@ import BlockUI from 'primevue/blockui';
 import Panel from 'primevue/panel';
 import Menubar from 'primevue/menubar';
 import Tooltip from 'primevue/tooltip';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import Textarea from 'primevue/textarea';
 
 import {mutations, store} from "./utils/store";
 import {eventMessageBus} from "./utils/event-message-bus";
@@ -50,6 +53,9 @@ Vue.component('BlockUI', BlockUI);
 Vue.component('Panel', Panel);
 Vue.component('Menubar', Menubar);
 Vue.component('Tooltip', Tooltip);
+Vue.component('Column', Column);
+Vue.component('DataTable', DataTable);
+Vue.component('Textarea', Textarea);
 
 
 

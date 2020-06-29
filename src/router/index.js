@@ -2,11 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/pages/Home.vue'
 import Login from '../views/pages/Login.vue'
-import About from "../views/pages/About";
 import EmptyPage from "../views/pages/EmptyPage";
 import Base from "../views/template/Base";
 import AuthStorage from '../utils/auth-storage';
 import MyAccount from "../views/pages/MyAccount";
+import CompanyConsult from "../views/pages/company/CompanyConsult";
+import CompanyCreate from "../views/pages/company/CompanyCreate";
 
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -43,12 +44,6 @@ const routes = [
                 beforeEnter: ifAuthenticated,
             },
             {
-                path: 'about',
-                name: 'About',
-                component: About,
-                beforeEnter: ifAuthenticated,
-            },
-            {
                 path: 'empty',
                 name: 'Empty',
                 component: EmptyPage,
@@ -58,6 +53,25 @@ const routes = [
                 path: 'account',
                 name: 'Account',
                 component: MyAccount,
+                beforeEnter: ifAuthenticated,
+            }
+
+        ]
+    },
+    {
+        path: '/company',
+        component: Base,
+        children: [
+            {
+                path: 'consult',
+                name: 'CompanyConsult',
+                component: CompanyConsult,
+                beforeEnter: ifAuthenticated,
+            },
+            {
+                path: 'create',
+                name: 'CompanyCreate',
+                component: CompanyCreate,
                 beforeEnter: ifAuthenticated,
             }
 

@@ -60,18 +60,15 @@
                 overlayMenuActive: false,
                 mobileMenuActive: false,
                 userLogged: {},
-                title: "Acessos",
+                title: this.$t('menu.lbl_access'),
+
                 menu: [
-                    {label: 'Dashboard', icon: 'pi pi-fw pi-chart-line', to: '/'},
-                    {label: 'About', icon: 'pi pi-fw pi-info-circle', to: '/about'},
+                    {label: 'Empty Page', icon: 'pi pi-fw pi-ticket', to: '/empty'},
+                    {label: 'Empresa', icon: 'pi pi-fw pi-briefcase', to: '/company/consult'},
+                    {label: 'Contratos', icon: 'pi pi-fw pi-file-o', to: '/'},
+                    {label: 'Utilizadores', icon: 'pi pi-fw pi-users', to: '/'},
                     {
-                        label: 'Template Pages', icon: 'pi pi-fw pi-desktop',
-                        items: [
-                            {label: 'Empty Page', icon: 'pi pi-fw pi-ticket', to: '/empty'}
-                        ]
-                    },
-                    {
-                        label: 'Menu Colors', icon: 'pi pi-fw pi-align-left',
+                        label: this.$t('menu.lbl_config'), icon: 'pi pi-fw pi-align-left',
                         items: [
                             {label: 'Dark', icon: 'pi pi-fw pi-bars', command: () => this.layoutColorMode = 'dark'},
                             {label: 'Light', icon: 'pi pi-fw pi-bars', command: () => this.layoutColorMode = 'light'}
@@ -186,23 +183,12 @@
 
 <style lang="scss">
     .p-toast.p-toast-topright {
-        z-index: 1000;
-        top: 70px;
+        z-index: 9999 !important;
     }
-
-    .p-toast {
-        width: 20.4rem !important;
-    }
-
-    .p-toast.p-toast-topright {
-        z-index: 1000 !important;
-        top: 10px !important;
-        right: 10px !important;
-    }
-
     .title {
         color: #eeeeee !important;
-        margin: -7px !important;
     }
-
+    .card h1 {
+        padding-bottom: 0.5em !important;
+    }
 </style>

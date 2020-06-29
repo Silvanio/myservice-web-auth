@@ -7,9 +7,9 @@
             <span class="username">{{ this.user.name }}</span>
         </div>
         <div>
-            <span class="company">{{ this.user.company.name }}</span>
+            <span class="company">{{ this.user.company }}</span>
             <button class="p-link layout-profile-link" @click="onClick">
-                <i class="pi pi-fw pi-cog"></i>
+                    <i class="pi pi-fw pi-chevron-circle-down"></i>
             </button>
         </div>
         <transition name="layout-submenu-wrapper">
@@ -33,14 +33,27 @@
     const loginService = new LoginService();
 
     export default {
+        name: "AppProfile",
         data() {
             return {
                 expanded: false,
             }
         },
-        computed:{
+        computed: {
             user() {
-                return Vue.prototype.$mystory.userLogged;
+                const userLogged = Vue.prototype.$mystory.userLogged;
+
+                const user = {
+                    name: "",
+                    company: ""
+                }
+
+                if (userLogged && userLogged.company) {
+                    user.name = userLogged.name
+                    user.company = userLogged.company.name
+
+                }
+                return user;
             },
         },
         methods: {
@@ -61,16 +74,16 @@
 
 <style scoped>
 
-.background-profile{
-    box-sizing: border-box;
-    padding-top: 1em;
-    width: 250px;
-    text-align: center;
-    background: url(/assets/layout/images/profile-bg.png) top left no-repeat;
-    background-size: 250px 145px;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
-    -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
-}
+    .background-profile {
+        box-sizing: border-box;
+        padding-top: 1em;
+        width: 250px;
+        text-align: center;
+        background: url(/assets/layout/images/profile-bg.png) top left no-repeat;
+        background-size: 250px 145px;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
+        -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
+    }
 
 </style>

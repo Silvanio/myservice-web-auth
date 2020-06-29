@@ -1,4 +1,4 @@
-import Service from "./service";
+import Service from "./common/service";
 
 export default class UserService extends Service {
 
@@ -15,7 +15,6 @@ export default class UserService extends Service {
     }
 
     update(user) {
-        console.log(user)
         return this.post({resource: "/update", data: user})
     }
 

@@ -106,7 +106,8 @@
         },
         computed: {
             isDesktop() {
-                return window.innerWidth > 1024;
+                return false;
+                //return window.innerWidth > 1024;
             }
         },
         data() {
@@ -199,7 +200,7 @@
     }
 
     .div-left {
-        background-color: #1f414d;
+        background-color: #116fbf;
         border-radius: 1% 0% 0% 1%;
     }
 

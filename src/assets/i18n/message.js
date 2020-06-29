@@ -11,6 +11,7 @@ module.exports = {
             msg_required: "Campo obrigatório",
             msg_required_fields: "Preencha todos os campos",
             msg_error_503: "Servidor temporariamente indisponível",
+            msg_error_500: "Erro ao efetuar operação",
             msg_general_success: "Operação realizada com sucesso",
             msg_module_access: "Modulo de acessos",
             msg_password_management: "Gestão de senhas",
@@ -22,6 +23,7 @@ module.exports = {
             msg_user_not_found: "Utilizador não encontrado",
             msg_unauthorized_user: "Utilizador não autorizado",
             msg_invalid_password: "Senha inválida",
+            msg_no_records_found: "Nenhum registro encontrado",
             login: {
                 lbl_title: "Autenticação",
                 lbl_company_code: "Código da Empresa",
@@ -45,6 +47,19 @@ module.exports = {
             configs:{
                 msg_account:"Meus dados",
                 msg_logout:"Sair"
+            },
+            menu:{
+                lbl_config:"Configuraçõess",
+                lbl_access:"Acessos"
+            },
+            company:{
+                lbl_consult_title:"Consultar Empresas",
+                lbl_create_title:"Adicionar Empresa",
+                lbl_code: "Código",
+                lbl_name: "Nome",
+                lbl_fiscalNumber: "Número fiscal",
+                lbl_address: "Endereço",
+                lbl_comments: "Observações",
             }
 
         },

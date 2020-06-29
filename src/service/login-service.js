@@ -1,4 +1,4 @@
-import Service from "./service";
+import Service from "./common/service";
 import AuthStorage from "../utils/auth-storage";
 import axios from "axios";
 import Vue from "vue";

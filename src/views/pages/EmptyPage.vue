@@ -1,6 +1,5 @@
 <template>
     <div class="p-grid">
-
         <div class="p-col-12">
             <Breadcrumb class="breadcrumb" :home="breadIcon" :model="breadItems"/>
         </div>

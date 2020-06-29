@@ -2,7 +2,7 @@
     <div>
         <div v-if="showProgressBar" class="p-blockui p-component-overlay" style="z-index: 1008;"></div>
         <ProgressBar v-show="showProgressBar" :mode="showProgress" style="height: .2em"/>
-        <Toast :base-z-index="9999" :auto-z-index="false"/>
+        <Toast :base-z-index="99999" :auto-z-index="false"/>
         <router-view/>
     </div>
 </template>

@@ -5,30 +5,30 @@
 
                 <h1>
                     {{ title }}
-                    <Button style="float: right" icon="pi pi-key" class="p-button-rounded" @click="openChangePassword" v-tooltip.left="$t('account.lbl_change_password')"/>
+                    <Button style="float: right" icon="pi pi-key" class="p-button-rounded " @click="openChangePassword" v-tooltip.left="$t('account.lbl_change_password')"/>
                 </h1>
 
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-4">
                         <label for="name">{{ $t('account.lbl_name')}}</label>
-                        <InputText id="name" v-model="userModel.name" type="text" :class="{'p-invalid'
+                        <InputText id="name" autocomplete="off" v-model="userModel.name" type="text" :class="{'p-invalid'
                         :$v.userModel.name.$invalid && submitted}"/>
                         <small v-show="$v.userModel.name.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
                     </div>
                     <div class="p-field p-col-12 p-md-4">
                         <label for="username">{{ $t('account.lbl_username')}}</label>
-                        <InputText id="username" v-model="userModel.username" type="text" :class="{'p-invalid' :$v.userModel.username.$invalid && submitted}"/>
+                        <InputText id="username"  autocomplete="off" v-model="userModel.username" type="text" :class="{'p-invalid' :$v.userModel.username.$invalid && submitted}"/>
                         <small v-show="$v.userModel.username.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
                     </div>
                     <div class="p-field p-col-12 p-md-4">
                         <label for="email">{{ $t('account.lbl_email')}}</label>
-                        <InputText id="email" v-model="userModel.email" type="text" :class="{'p-invalid' :$v.userModel.email.$invalid && submitted}"/>
+                        <InputText id="email"  v-model="userModel.email" type="text"  autocomplete="off" :class="{'p-invalid' :$v.userModel.email.$invalid && submitted}"/>
                         <small v-show="$v.userModel.email.$invalid && submitted" class="p-error">{{$t('msg_required')}}</small>
 
                     </div>
                     <div class="p-field p-col-12 p-md-12">
                         <label for="company">{{ $t('account.lbl_company')}}</label>
-                        <InputText id="company" disabled dis v-model="userModel.company.name" type="text" />
+                        <InputText id="company" autocomplete="off" disabled dis v-model="userModel.company.name" type="text" />
                     </div>
                 </div>
 
@@ -108,7 +108,7 @@
                     return;
                 }
                 userService.update(this.userModel).then((response) => {
-                    Vue.prototype.$msgbus.addMessageSuccess("msg_ok_send_mail", response.message);
+                    Vue.prototype.$msgbus.addMessageSuccess("msg_info", response.message);
                 }).catch(error => {
                     const code = error.response.status
                     if (code === 400) {
@@ -133,7 +133,7 @@
                     this.userModel.newPassword = "";
                     this.userModel.repeatNewPassword = "";
                     this.closeChangePassword();
-                    Vue.prototype.$msgbus.addMessageSuccess("msg_ok_send_mail", response.message);
+                    Vue.prototype.$msgbus.addMessageSuccess("msg_info", response.message);
                 }).catch(error => {
                     const code = error.response.status
                     if (code === 400) {
@@ -153,12 +153,5 @@
 </script>
 
 <style scoped>
-    .p-button.p-button-icon-only {
-        width: 2.8em !important;
-        padding: 0.6rem 0.3rem 0.5rem 0.8rem !important;
-    }
 
-    .card h1 {
-        padding-bottom: 0.5em !important;
-    }
 </style>
