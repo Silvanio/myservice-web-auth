@@ -12,5 +12,9 @@ export const mutations = {
   },
   setUserLogged(value) {
     store.userLogged = value;
+  },
+  getUserLogger() {
+   const user =  store.userLogged;
+   return user;
   }
 };

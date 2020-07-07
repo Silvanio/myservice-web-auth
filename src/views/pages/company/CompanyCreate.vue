@@ -6,38 +6,59 @@
                 <h1>
                     {{ title }}
                     <Button style="float: right" icon="pi pi-arrow-circle-left" class="p-button-rounded p-button-secondary" @click="openConsult"
-                            v-tooltip.left="$t('company.lbl_consult_title')"/>
+                            v-tooltip.left="$t('contract.lbl_consult_title')"/>
                 </h1>
 
+                    <div class="p-field-checkbox">
+                        <Checkbox id="binary" v-model="entity.client" :binary="true"/>
+                        <label for="binary">{{ $t('lbl_client') }}</label>
+                    </div>
+
                 <div class="p-fluid p-formgrid p-grid">
-                    <div class="p-field p-col-12 p-md-4">
-                        <label for="codeCompany">{{ $t('company.lbl_code')}}</label>
-                        <InputText id="codeCompany" autocomplete="off" v-model="company.code" type="text" :class="{'p-invalid' :$v.company.code.$invalid && submitted}"/>
-                        <small v-show="$v.company.code.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label required for="codeCompany">{{ $t('company.lbl_code')}}</label>
+                        <InputText id="codeCompany" autocomplete="off" v-model="entity.code" type="text" :class="{'p-invalid' :$v.entity.code.$invalid && submitted}"/>
+                        <small v-show="$v.entity.code.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
                     </div>
-                    <div class="p-field p-col-12 p-md-4">
-                        <label for="nameCompany">{{ $t('company.lbl_name')}}</label>
-                        <InputText id="nameCompany" autocomplete="off" v-model="company.name" type="text" :class="{'p-invalid' :$v.company.name.$invalid && submitted}"/>
-                        <small v-show="$v.company.name.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label required for="nameCompany">{{ $t('company.lbl_name')}}</label>
+                        <InputText id="nameCompany" autocomplete="off" v-model="entity.name" type="text" :class="{'p-invalid' :$v.entity.name.$invalid && submitted}"/>
+                        <small v-show="$v.entity.name.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
                     </div>
-                    <div class="p-field p-col-12 p-md-4">
-                        <label for="fiscalNumberCompany">{{ $t('company.lbl_fiscalNumber')}}</label>
-                        <InputText id="fiscalNumberCompany" autocomplete="off" v-model="company.fiscalNumber" type="text"
-                                   :class="{'p-invalid' :$v.company.fiscalNumber.$invalid && submitted}"/>
-                        <small v-show="$v.company.fiscalNumber.$invalid && submitted" class="p-error">{{$t('msg_required')}}</small>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label required for="fiscalNumberCompany">{{ $t('company.lbl_fiscalNumber')}}</label>
+                        <InputText id="fiscalNumberCompany" autocomplete="off" v-model="entity.fiscalNumber" type="text"
+                                   :class="{'p-invalid' :$v.entity.fiscalNumber.$invalid && submitted}"/>
+
+                        <small v-show="$v.entity.fiscalNumber.$invalid && submitted" class="p-error">{{$t('msg_required')}}</small>
                     </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label required for="statusCompany">{{ $t('lbl_status')}}</label>
+                        <Dropdown id="statusCompany" v-model="entity.status" :options="statusList" optionLabel="desc" optionValue="label"
+                                  placeholder="Selecione..." class="p-column-filter" :class="{'p-invalid' :$v.entity.status.$invalid && submitted}">
+                            <template #option="slotProps">
+                                <div class="p-clearfix p-dropdown-car-option">
+                                    <span>{{slotProps.option.desc}}</span>
+                                </div>
+                            </template>
+                        </Dropdown>
+                        <small v-show="$v.entity.status.$invalid && submitted" class="p-error">{{$t('msg_required')}}</small>
+                    </div>
+
                     <div class="p-field p-col-12 p-md-6">
                         <label for="adressCompany">{{ $t('company.lbl_address')}}</label>
-                        <Textarea id="adressCompany" v-model="company.address" :autoResize="true" rows="3" cols="20"/>
+                        <Textarea id="adressCompany" v-model="entity.address" :autoResize="true" rows="3" cols="20"/>
                     </div>
                     <div class="p-field p-col-12 p-md-6">
                         <label for="commentsCompany">{{ $t('company.lbl_comments')}}</label>
-                        <Textarea id="commentsCompany" v-model="company.comments" :autoResize="true" rows="3" cols="20"/>
+                        <Textarea id="commentsCompany" v-model="entity.comments" :autoResize="true" rows="3" cols="20"/>
                     </div>
+
+
                 </div>
                 <div class="p-grid p-fluid p-justify-end">
                     <div class="p-sm-2">
-                        <Button :label="$t('lbl_save')" @click="save(!$v.$invalid)"/>
+                        <Button  :label="$t('lbl_save')" @click="save(!$v.$invalid)"/>
                     </div>
                 </div>
 
@@ -60,7 +81,8 @@
         data() {
             return {
                 title: this.$t('company.lbl_create_title'),
-                company: {
+                crud: "company",
+                entity: {
                     id: "",
                     code: "",
                     name: "",
@@ -68,25 +90,26 @@
                     address: "",
                     comments: "",
                     client: true,
+                    status: "ACTIVE"
                 }
             }
         },
         validations: {
-            company: {
+            entity: {
                 code: {required},
                 name: {required},
-                fiscalNumber: {required}
+                fiscalNumber: {required},
+                status: {required}
+
             }
         },
+
         methods: {
-            openConsult() {
-                this.$router.push("/company/consult");
-            },
             getService() {
                 return companyService;
             },
             getModel() {
-                return this.company;
+                return this.entity;
             },
         }
     }

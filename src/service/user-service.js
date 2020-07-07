@@ -14,8 +14,8 @@ export default class UserService extends Service {
         return this.post({resource: "/changePassword", data: user})
     }
 
-    update(user) {
-        return this.post({resource: "/update", data: user})
+    updateUserDTO(user) {
+        return this.post({resource: "/updateUserDTO", data: user})
     }
 
 }

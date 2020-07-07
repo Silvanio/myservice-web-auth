@@ -28,6 +28,10 @@ standard.interceptors.response.use(response => {
 }, error => {
     const {response: {status, config}} = error
 
+    if (error.response.status == 403) {
+        Vue.prototype.$msgbus.addMessageWarn("msg_error_403", "")
+    }
+
     if (error.response.status == 500) {
         Vue.prototype.$msgbus.addMessageWarn("msg_error_500", "")
     }
@@ -72,7 +76,7 @@ export default class Http {
         this.http = http || standard
     }
 
-    get(resource) {
+    getMethod(resource) {
         return this.http
             .get(this.constructor.normalize(this.path, resource))
             .then(this.constructor.then)

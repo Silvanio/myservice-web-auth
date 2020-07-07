@@ -11,6 +11,10 @@ export default class Service extends Http {
         return this.post({resource: "/save", data: entity})
     }
 
+    saveDTO(entity) {
+        return this.post({resource: "/saveDTO", data: entity})
+    }
+
     delete(idEntity) {
         return this.post({resource: "/delete", data: idEntity})
     }
@@ -23,7 +27,11 @@ export default class Service extends Http {
         return this.post({resource: "/get", data: idEntity})
     }
 
+    getDTO(idEntity) {
+        return this.post({resource: "/getDTO", data: idEntity})
+    }
+
     list() {
-        return this.get("/list");
+        return this.getMethod("/list");
     }
 }

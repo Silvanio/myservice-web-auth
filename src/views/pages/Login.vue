@@ -26,14 +26,13 @@
                         <div class="p-col-11"></div>
 
                         <div class="p-col-11">
-                            <div class="box"><img alt="Vue logo" src="@/assets/layout/images/logo.png" width="150"></div>
+                            <div class="box"><img alt="Vue logo" src="assets/layout/images/mylogo.png" width="150"></div>
                         </div>
 
-                        <div class="p-col-11 ">
-                            <div class="box"><h2>{{ $t('login.lbl_title') }}</h2></div>
+                        <div class="p-col-11">
+                            <div class="box" style="font-size: 20px;">{{ $t('login.lbl_title') }}</div>
                         </div>
 
-                        <div class="p-col-11"></div>
 
                         <div class="p-col-11">
                             <InputText id="company" v-model="userModel.company" type="text" :placeholder="$t('login.lbl_company_code')" :class="{'p-invalid'
@@ -73,7 +72,7 @@
             </div>
         </div>
 
-        <Dialog :header="$t('login.msg_forgot_password')" :visible.sync="displayMaximizable"  :maximizable="true" :modal="true">
+        <Dialog :header="$t('login.msg_forgot_password')" :visible.sync="displayMaximizable" :maximizable="true" :modal="true">
             <div class="p-grid p-fluid">
                 <div class="p-col-12">
                     <InputText id="companyDialog" v-model="userModel.company" type="text" :placeholder="$t('login.lbl_company_code')"/>
@@ -96,8 +95,10 @@
     import AuthStorage from '../../utils/auth-storage';
     import {required} from 'vuelidate/lib/validators';
     import Vue from "vue";
+    import UserService from "../../service/user-service";
 
     const loginService = new LoginService();
+    const userService = new UserService();
 
     export default {
         name: 'Login',
@@ -155,7 +156,7 @@
                         AuthStorage.setStorage(this.remember, "access_token", access_token);
                         AuthStorage.setStorage(this.remember, "refresh_token", refresh_token);
                         AuthStorage.setStorage(this.remember, "remember_token", this.remember,);
-                        this.$router.push("/empty");
+                        this.getUserLogged();
                     }
                 }).catch(error => {
                     const code = error.response.status
@@ -166,7 +167,13 @@
                     }
                 })
             },
-
+            getUserLogged() {
+                userService.getCurrentUserInfo().then((response) => {
+                    Vue.prototype.$mymutations.setUserLogged(response);
+                    AuthStorage.setStorage(true, "authorities", JSON.stringify(response.authorities));
+                    this.$router.push("/empty");
+                });
+            },
             sendMailForgotPassword() {
                 if (!this.userModel.name || !this.userModel.company) {
                     Vue.prototype.$msgbus.addMessageWarn("msg_info", "msg_required");

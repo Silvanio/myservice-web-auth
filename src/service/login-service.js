@@ -56,6 +56,7 @@ export default class LoginService extends Service {
         AuthStorage.removeItem("access_token");
         AuthStorage.removeItem("refresh_token");
         AuthStorage.removeItem("remember_token");
+        AuthStorage.removeItem("authorities");
     }
 
 }

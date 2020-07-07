@@ -5,6 +5,7 @@
 
                 <h1>
                     {{ title }}
+
                     <Button style="float: right" icon="pi pi-key" class="p-button-rounded " @click="openChangePassword" v-tooltip.left="$t('account.lbl_change_password')"/>
                 </h1>
 
@@ -107,7 +108,7 @@
                 if (!isFormValid) {
                     return;
                 }
-                userService.update(this.userModel).then((response) => {
+                userService.updateUserDTO(this.userModel).then((response) => {
                     Vue.prototype.$msgbus.addMessageSuccess("msg_info", response.message);
                 }).catch(error => {
                     const code = error.response.status

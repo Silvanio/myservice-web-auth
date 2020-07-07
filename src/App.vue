@@ -19,7 +19,7 @@
         created() {
             const vm = this;
             Vue.prototype.$msgbus.$on("MSG_GENERAL", function(message,event) {
-                this.$toast.add({severity: message.type, summary: vm.$t(message.summary), detail: vm.$t(message.detail), life:2000});
+                this.$toast.add({severity: message.type, summary: vm.$t(message.summary), detail: vm.$t(message.detail), life:3000});
                 if(event){
                     event.preventDefault();
                 }
@@ -40,4 +40,8 @@
     .p-link:focus {
         box-shadow: none !important;
     }
+    .p-toast.p-toast-topright {
+        z-index: 9999 !important;
+    }
+
 </style>

@@ -2,14 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
+import './assets/theme.css';
+import 'primevue/resources/themes/bootstrap4-light-blue/theme.css';
 
-import 'primevue/resources/themes/nova-light/theme.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeflex/primeflex.css';
-import 'primeicons/primeicons.css';
+import 'primeicons/primeicons.css'
 import 'prismjs/themes/prism-coy.css';
-import './assets/layout/layout.scss';
+import 'font-awesome/css/font-awesome.min.css'
 
+import moment from 'moment'
 import {Vuelidate} from 'vuelidate';
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
@@ -32,9 +34,25 @@ import Tooltip from 'primevue/tooltip';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Textarea from 'primevue/textarea';
+import TabView from 'primevue/tabview';
+import TabPanel from 'primevue/tabpanel';
+import TriStateCheckbox from 'primevue/tristatecheckbox';
+import AutoComplete from 'primevue/autocomplete';
+import Calendar from 'primevue/calendar';
+import InputNumber from 'primevue/inputnumber';
+import PickList from 'primevue/picklist';
+import OrderList from 'primevue/orderlist';
+import Accordion from 'primevue/accordion';
+import AccordionTab from 'primevue/accordiontab';
+import Fieldset from 'primevue/fieldset';
+
+
+
 
 import {mutations, store} from "./utils/store";
 import {eventMessageBus} from "./utils/event-message-bus";
+import AuthStorage from "./utils/auth-storage";
+import {authBus} from "./utils/auth";
 
 
 Vue.component('Button', Button);
@@ -56,7 +74,17 @@ Vue.component('Tooltip', Tooltip);
 Vue.component('Column', Column);
 Vue.component('DataTable', DataTable);
 Vue.component('Textarea', Textarea);
-
+Vue.component('TabView', TabView);
+Vue.component('TabPanel', TabPanel);
+Vue.component('TriStateCheckbox', TriStateCheckbox);
+Vue.component('AutoComplete', AutoComplete);
+Vue.component('Calendar', Calendar);
+Vue.component('InputNumber', InputNumber);
+Vue.component('PickList', PickList);
+Vue.component('OrderList', OrderList);
+Vue.component('Accordion', Accordion);
+Vue.component('AccordionTab', AccordionTab);
+Vue.component('Fieldset', Fieldset);
 
 
 Vue.use(Vuelidate)
@@ -67,6 +95,8 @@ Vue.config.productionTip = false
 Vue.prototype.$mystory = store;
 Vue.prototype.$mymutations = mutations;
 Vue.prototype.$msgbus = eventMessageBus;
+Vue.prototype.$authbus = authBus;
+
 
 
 let message = require('./assets/i18n/message.js')
@@ -78,6 +108,18 @@ const i18n = new VueI18n({
 })
 
 Vue.directive('tooltip', Tooltip);
+
+Vue.filter('formatDate', function(value) {
+  if (value) {
+    return moment(String(value)).format('DD/MM/YYYY')
+  }
+});
+
+Vue.filter('formatDateHour', function(value) {
+  if (value) {
+    return moment(String(value)).format('DD/MM/YYYY hh:mm')
+  }
+});
 
 
 export const vm =new Vue({
