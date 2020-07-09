@@ -1,72 +1,148 @@
 /* Custom toast location */
 .p-toast.p-toast-topright {
-    top: 70px;
+  top: 70px;
 }
 
 .p-toast .p-toast-item-container.p-toast-message-success {
-    background: #C8E6C9 !important;
-    border: solid #4CAF50 !important;
-    border-width: 0 0 0 6px !important;
-    color: #1B5E20 !important;
+  background: #C8E6C9 !important;
+  border: solid #4CAF50 !important;
+  border-width: 0 0 0 6px !important;
+  color: #1B5E20 !important;
 }
 
 .p-toast .p-toast-item-container.p-toast-message-success .p-toast-image, .p-toast .p-toast-item-container.p-toast-message-success .p-toast-icon-close {
-    color: #1B5E20 !important;
+  color: #1B5E20 !important;
 }
 
 .p-toast .p-toast-item-container.p-toast-message-warn {
-    background: #FFECB3 !important;
-    border: solid #FFC107 !important;
-    border-width: 0 0 0 6px !important;
-    color: #7f6003 !important;
+  background: #FFECB3 !important;
+  border: solid #FFC107 !important;
+  border-width: 0 0 0 6px !important;
+  color: #7f6003 !important;
 }
 
 .p-toast .p-toast-item-container.p-toast-message-warn .p-toast-image, .p-toast .p-toast-item-container.p-toast-message-warn .p-toast-icon-close {
-    color: #7f6003 !important;
+  color: #7f6003 !important;
 }
 
 .p-toast {
-    width: 20rem !important;
+  width: 20rem !important;
 }
 
 .p-toast .p-toast-item-container .p-toast-item .p-toast-title {
-    font-size: 12px !important;;
+  font-size: 12px !important;;
 }
 
 .p-toast .p-toast-item-container .p-toast-item .p-toast-detail {
-    font-size: 12px !important;;
+  font-size: 12px !important;;
 }
 
 /* Responsive Table */
 .p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
-    display: none;
+  display: none;
 }
 
 .p-datatable .p-paginator-bottom {
-    border-width: 0 1px 1px 1px !important;
+  border-width: 0 1px 1px 1px !important;
 }
 
 @media screen and (max-width: 40em) {
-    .p-datatable-responsive .p-datatable-thead > tr > th,
-    .p-datatable-responsive .p-datatable-tfoot > tr > td {
-        display: none !important;
-    }
+  .p-datatable-responsive .p-datatable-thead > tr > th,
+  .p-datatable-responsive .p-datatable-tfoot > tr > td {
+    display: none !important;
+  }
 
-    .p-datatable-responsive .p-datatable-tbody > tr > td {
-        text-align: left;
-        display: block;
-        border: 0 none !important;
-        width: 100% !important;
-        float: left;
-        clear: left;
-    }
+  .p-datatable-responsive .p-datatable-tbody > tr > td {
+    text-align: left;
+    display: block;
+    border: 0 none !important;
+    width: 100% !important;
+    float: left;
+    clear: left;
+  }
 
-    .p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
-        padding: .4em;
-        min-width: 30%;
-        display: inline-block;
-        margin: -.4em 1em -.4em -.4em;
-        font-weight: bold;
-    }
+  .p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
+    padding: .4em;
+    min-width: 30%;
+    display: inline-block;
+    margin: -.4em 1em -.4em -.4em;
+    font-weight: bold;
+  }
 
+}
+
+body .p-button.p-button-icon-only {
+  width: 2.65em !important;
+}
+
+.p-button.p-button-icon-only.p-button-rounded {
+  height: 2.257rem !important;
+}
+
+.p-button-icon {
+  margin-right: 1px !important;
+}
+
+@media (max-width: 640px) {
+  .p-datatable-wrapper {
+    border: 1px solid #c8c8c8 !important;
+  }
+}
+
+body .p-paginator {
+  background-color: #ffffff !important;
+  border: 1px solid #c8c8c8 !important;
+  padding: 5px !important;
+}
+
+body .p-paginator .p-link {
+  font-size: 12px !important;
+}
+
+body .p-invalid .p-autocomplete-input {
+  border-color: #f44336 !important;
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
+  padding: 3px !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 3px !important;
+}
+
+body .p-datepicker .p-datepicker-header .p-datepicker-title select {
+  padding: 3px !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 3px !important;
+}
+
+.p-inputnumber-button-group .p-button.p-button-icon-only {
+  width: 2em !important;
+}
+
+.p-inputnumber-button .pi {
+  font-size: 0.88em !important;
+}
+
+.p-inputnumber-button .p-button-icon {
+  margin-left: 0px !important;
+}
+
+.layout-wrapper .layout-menu li a.router-link-active, .layout-wrapper .layout-menu li button.router-link-active {
+  font-weight: 700 !important;
+}
+
+.p-picklist-source-controls{
+  display: none !important;
+}
+.p-picklist-target-controls{
+  display: none !important;
+}
+
+body .p-picklist .p-picklist-buttons button {
+  font-size: 12px !important;
+}
+
+label[required]::after {
+  content: " *";
+  color: #f44336;
 }

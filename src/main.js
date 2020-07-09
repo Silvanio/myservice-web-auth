@@ -8,6 +8,7 @@ import 'primevue/resources/themes/bootstrap4-light-blue/theme.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css'
+import '@fullcalendar/daygrid/main.css';
 import 'prismjs/themes/prism-coy.css';
 import 'font-awesome/css/font-awesome.min.css'
 
@@ -51,7 +52,6 @@ import Fieldset from 'primevue/fieldset';
 
 import {mutations, store} from "./utils/store";
 import {eventMessageBus} from "./utils/event-message-bus";
-import AuthStorage from "./utils/auth-storage";
 import {authBus} from "./utils/auth";
 
 

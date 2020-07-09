@@ -1,5 +1,6 @@
 <template>
 
+	<div class="footer-display" >
 
     <div class="footer-abs layout-footer">
 			<span class="footer-text-left">
@@ -15,7 +16,7 @@
 		</span>
     </div>
 
-
+	</div>
 
 
 </template>
@@ -73,6 +74,10 @@
 		}
 		.layout-wrapper .layout-footer .footer-text-left img {
 			height: 18px;
+		}
+
+		.footer-display{
+			display: none;
 		}
 	}
 

@@ -385,7 +385,7 @@ body .p-calendar.p-calendar-w-btn .p-datepicker-trigger.p-button {
   border-bottom-left-radius: 0;
 }
 body .p-fluid .p-calendar.p-calendar-w-btn .p-inputtext {
-  width: calc(100% - 2.357em);
+  width: calc(100% - 3.357em);
 }
 body .p-calendar.p-error > .p-inputtext {
   border: 1px solid #f44336;

@@ -5,11 +5,11 @@
 
                 <h1>
                     {{ title }}
-                    <Button style="float: right" icon="pi pi-arrow-circle-left" class="p-button-rounded p-button-secondary" @click="openConsult"
+                    <Button style="float: right" icon="pi pi-arrow-circle-left" class="p-button-rounded p-button-secondary p-shadow-7" @click="openConsult"
                             v-tooltip.left="$t('company.lbl_consult_title')"/>
                 </h1>
 
-                <div class="p-fluid p-formgrid p-grid">
+                <div class="p-fluid p-grid p-formgrid">
                     <div class="p-field p-col-12 p-md-3">
                         <label required for="companyComplete">{{ $t('menu.lbl_company')}}</label>
                         <AutoComplete id="companyComplete" v-tooltip.left="$t('msg_field_autocomplete')" :minLength="4" v-model="entity.company" :suggestions="companyList"
@@ -18,15 +18,15 @@
                         <small v-show="$v.entity.company.id.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
                     </div>
 
-                    <div class="p-field p-col-12 p-md-3">
+                    <div class="p-field p-col-12 p-md-4">
                         <label required for="initialDate">{{ $t('contract.lbl_initial_date') }}</label>
                         <Calendar id="initialDate" dateFormat="dd/mm/yy" :locale="pt" v-model="entity.initialDate" :monthNavigator="true" :yearNavigator="true"
                                   :manualInput="false" yearRange="2020:2030" :class="{'p-invalid' :$v.entity.initialDate.$invalid && submitted}"/>
                         <small v-show="$v.entity.initialDate.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
                     </div>
 
-                    <div class="p-field p-col-12 p-md-3">
-                        <label required for="initialDate">{{ $t('contract.lbl_final_date') }}</label>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label required for="finalDate">{{ $t('contract.lbl_final_date') }}</label>
                         <Calendar id="finalDate" dateFormat="dd/mm/yy" :locale="pt" v-model="entity.finalDate" :monthNavigator="true" :yearNavigator="true"
                                   :manualInput="false" yearRange="2020:2030" :class="{'p-invalid' :$v.entity.finalDate.$invalid && submitted}"/>
                         <small v-show="$v.entity.finalDate.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
@@ -126,7 +126,7 @@
         },
         methods: {
             initCreate() {
-                appModuleService.list().then(response => this.appModuleList = [response, []]).catch(this.catchError);
+                appModuleService.findAllActiveDTO().then(response => this.appModuleList = [response, []]).catch(this.catchError);
             },
             initEdit() {
                 if (this.entity.initialDate) {
@@ -136,7 +136,7 @@
                     this.entity.finalDate = new Date(this.entity['finalDate']);
                 }
                 if (this.entity.appModules) {
-                    appModuleService.list().then((response) => {
+                    appModuleService.findAllActiveDTO().then((response) => {
                         for (let i = response.length - 1; i >= 0; i--) {
                             for (let j = 0; j < this.entity.appModules.length; j++) {
                                 if (response[i] && (response[i].name === this.entity.appModules[j].name)) {

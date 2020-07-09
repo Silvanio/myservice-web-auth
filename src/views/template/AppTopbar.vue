@@ -1,7 +1,8 @@
 <template>
     <div class="topbar clearfix">
         <div class="topbar-left">
-            <img alt="Logo" src="@/assets/images/mylogo_white.png" class="topbar-logo"/>
+            <img alt="Logo" src="@/assets/images/ic_logo_white.png" class="topbar-logo"/>
+            <span class="logo-name">MyServices</span>
         </div>
 
         <div class="topbar-right">
@@ -175,8 +176,12 @@
     }
 
     .layout-wrapper .topbar-items > li.profile-item button .profile-image {
-        margin-top: 4px !important;;
+        margin-top: 4px !important;
     }
-
+    .logo-name{
+        margin-left: 5px !important;
+        position: fixed !important;
+        color: white;
+    }
 
 </style>

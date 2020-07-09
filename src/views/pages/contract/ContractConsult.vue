@@ -4,8 +4,33 @@
             <div class="card">
                 <h1>
                     {{ title }}
-                    <Button style="float: right" icon="pi pi-plus-circle" class="p-button-rounded" @click="openCreate" v-tooltip.left="$t('contract.lbl_create_title')"/>
+                    <Button style="float: right" icon="pi pi-plus-circle" class="p-button-rounded p-shadow-7" @click="openCreate" v-tooltip.left="$t('contract.lbl_create_title')"/>
                 </h1>
+
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-3">
+                        <InputText type="text" id="nameModule" v-model="pageable.entity['name']" class="p-column-filter" :placeholder="$t('module.lbl_name')"/>
+                    </div>
+
+
+                    <div class="p-field p-col-12 p-md-3">
+                        <Dropdown v-model="pageable.entity['status']" :options="statusList" optionLabel="desc" optionValue="label"
+                                  placeholder="Selecione..." class="p-column-filter" :showClear="true">
+                            <template #option="slotProps">
+                                <div class="p-clearfix p-dropdown-car-option">
+                                    <span>{{slotProps.option.desc}}</span>
+                                </div>
+                            </template>
+                        </Dropdown>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-1">
+                        <Button :label="$t('lbl_filter')" @click="onPage()"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                    </div>
+                </div>
+
 
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12">
@@ -13,9 +38,6 @@
                                    :totalRecords="page.totalElements" @filter="onPage($event)" @page="onPage($event)" @sort="onPage($event)">
 
                             <Column field="company.name" :header="$t('menu.lbl_company')" :sortable="true" filterMatchMode="contains">
-                                <template #filter>
-                                    <InputText type="text" @blur="onPage()" v-model="pageable.entity.company['name']" class="p-column-filter" :placeholder="$t('menu.lbl_company')"/>
-                                </template>
                                 <template #body="slotProps">
                                     <span>{{ slotProps.data.company.name  }}</span>
                                 </template>
@@ -23,16 +45,6 @@
 
                             <Column field="status" headerStyle="overflow: visible" :header="$t('lbl_status')" :sortable="true" filterMatchMode="contains"
                                     bodyStyle="text-align: center; overflow: visible;">
-                                <template #filter>
-                                    <Dropdown v-model="pageable.entity['status']" @change="onPage()" :options="statusList" optionLabel="desc" optionValue="label"
-                                              placeholder="Selecione..." class="p-column-filter" :showClear="true">
-                                        <template #option="slotProps">
-                                            <div class="p-clearfix p-dropdown-car-option">
-                                                <span>{{slotProps.option.desc}}</span>
-                                            </div>
-                                        </template>
-                                    </Dropdown>
-                                </template>
                                 <template #body="slotProps">
                                     <span>{{ getStatusDesc(slotProps.data.status)   }}</span>
                                 </template>

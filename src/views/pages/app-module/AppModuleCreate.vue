@@ -5,7 +5,7 @@
 
                 <h1>
                     {{ title }}
-                    <Button style="float: right" icon="pi pi-arrow-circle-left" class="p-button-rounded p-button-secondary" @click="openConsult"
+                    <Button style="float: right" icon="pi pi-arrow-circle-left" class="p-button-rounded p-button-secondary p-shadow-7 " @click="openConsult"
                             v-tooltip.left="$t('module.lbl_consult_title')"/>
                 </h1>
 

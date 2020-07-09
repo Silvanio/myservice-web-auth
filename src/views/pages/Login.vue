@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="p-grid flex-center">
+        <div class="p-grid flex-center margin-top">
 
-            <div class="p-grid p-fluid p-justify-center">
+            <div class="p-grid p-fluid p-justify-center margin-phone">
 
                 <div class="p-md-3 p-nogutter p-shadow-5 div-left" v-show="isDesktop">
                     <div class="p-grid p-fluid " style="padding-left:8%;">
@@ -22,7 +22,7 @@
 
                 <div class="p-md-5 p-nogutter  p-shadow-5  div-right">
 
-                    <div class="p-grid p-fluid p-justify-center">
+                    <div class="p-grid p-fluid p-justify-center ">
                         <div class="p-col-11"></div>
 
                         <div class="p-col-11">
@@ -172,6 +172,14 @@
                     Vue.prototype.$mymutations.setUserLogged(response);
                     AuthStorage.setStorage(true, "authorities", JSON.stringify(response.authorities));
                     this.$router.push("/empty");
+                }).catch(error => {
+                    const code = error.response.status
+                    if (code === 400) {
+                        console.log(error.message)
+                        const message = JSON.parse(error.response.data);
+                        Vue.prototype.$msgbus.addMessageWarn(message.message, message.details);
+                    }
+                    loginService.logout()
                 });
             },
             sendMailForgotPassword() {
@@ -220,4 +228,14 @@
         text-decoration: underline !important;
         color: #1f414d !important;
     }
+    @media (max-width: 1024px) {
+        .margin-phone {
+            margin: 20px !important;
+        }
+        .margin-top{
+            padding-top: 120px;
+        }
+    }
+
+
 </style>

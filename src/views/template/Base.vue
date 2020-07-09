@@ -33,9 +33,10 @@
     import UserService from "../../service/user-service";
     import Vue from "vue";
     import AuthStorage from "../../utils/auth-storage";
-
+    import LoginService from "../../service/login-service";
 
     const userService = new UserService();
+    const loginService = new LoginService();
 
     export default {
         data() {
@@ -86,6 +87,15 @@
             userService.getCurrentUserInfo().then((response) => {
                 Vue.prototype.$mymutations.setUserLogged(response);
                 AuthStorage.setStorage(true, "authorities", JSON.stringify(response.authorities));
+            }).catch(error => {
+                const code = error.response.status
+                if (code === 400) {
+                    console.log(error.message)
+                    const message = JSON.parse(error.response.data);
+                    Vue.prototype.$msgbus.addMessageWarn(message.message, message.details);
+                }
+                loginService.logout()
+                this.$router.push("/login");
             });
             this.initMenu();
             this.initMenuEvent();
@@ -264,66 +274,4 @@
 <style lang="scss">
     @import './App.scss';
 
-    body .p-button.p-button-icon-only {
-        width: 2.65em !important;
-    }
-
-    .p-button.p-button-icon-only.p-button-rounded {
-        height: 2.257rem !important;
-    }
-
-    .p-button-icon {
-        margin-right: 1px !important;
-    }
-
-    body .p-paginator {
-        background-color: #ffffff !important;
-        border: 1px solid #c8c8c8 !important;
-        padding: 5px !important;
-    }
-
-    body .p-paginator .p-link {
-        font-size: 12px !important;
-    }
-
-    body .p-invalid .p-autocomplete-input {
-        border-color: #f44336 !important;
-    }
-
-    .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
-        padding: 3px !important;
-        border: 1px solid #ced4da !important;
-        border-radius: 3px !important;
-    }
-
-    body .p-datepicker .p-datepicker-header .p-datepicker-title select {
-        padding: 3px !important;
-        border: 1px solid #ced4da !important;
-        border-radius: 3px !important;
-    }
-
-    .p-inputnumber-button-group .p-button.p-button-icon-only {
-        width: 2em !important;
-    }
-
-    .p-inputnumber-button .pi {
-        font-size: 0.88em !important;
-    }
-
-    .p-inputnumber-button .p-button-icon {
-        margin-left: 0px !important;
-    }
-
-    .layout-wrapper .layout-menu li a.router-link-active, .layout-wrapper .layout-menu li button.router-link-active {
-        font-weight: 700 !important;
-    }
-
-    body .p-picklist .p-picklist-buttons button {
-        font-size: 12px !important;
-    }
-
-    label[required]::after {
-        content: " *";
-        color: #f44336;
-    }
 </style>
