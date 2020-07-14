@@ -59,8 +59,11 @@
                     <button class="p-link">
                         <img alt="User" v-show="isDesktop" class="profile-image" src="@/assets/images/avatar.png"/>
                         <img alt="User" v-show="!isDesktop" class="profile-image" src="@/assets/images/avatar_black.png"/>
-                        <span class="topbar-item-name">{{ this.user.name }}</span>
-                        <span class="topbar-item-role">{{ this.user.company }}</span>
+                        <span class="topbar-item-name">
+                            {{ this.user.name }}
+
+                        </span>
+                        <span class="topbar-item-role company-user">{{ this.user.company }}</span>
                     </button>
 
                     <transition name="layout-submenu-container">
@@ -182,6 +185,13 @@
         margin-left: 5px !important;
         position: fixed !important;
         color: white;
+    }
+
+    @media (max-width: 1024px) {
+        .company-user {
+            margin-left: 45px !important;
+
+        }
     }
 
 </style>

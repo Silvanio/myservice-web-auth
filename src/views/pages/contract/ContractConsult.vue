@@ -34,28 +34,29 @@
 
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12">
-                        <DataTable class="p-datatable-responsive" :value="page.content" :lazy="true" :filters="pageable.entity" :paginator="true" :rows="10"
+                        <DataTable class="p-datatable-responsive p-datatable-sm p-datatable-striped p-datatable-gridlines"
+                                   :value="page.content" :lazy="true" :filters="pageable.entity" :paginator="true" :rows="10"
                                    :totalRecords="page.totalElements" @filter="onPage($event)" @page="onPage($event)" @sort="onPage($event)">
 
-                            <Column field="company.name" :header="$t('menu.lbl_company')" :sortable="true" filterMatchMode="contains">
+                            <Column field="company.name" :header="$t('menu.lbl_company')" :sortable="true" filterMatchMode="contains"  headerStyle="text-align: center;" bodyStyle="text-align: center;" >
                                 <template #body="slotProps">
                                     <span>{{ slotProps.data.company.name  }}</span>
                                 </template>
                             </Column>
 
-                            <Column field="status" headerStyle="overflow: visible" :header="$t('lbl_status')" :sortable="true" filterMatchMode="contains"
+                            <Column field="status" headerStyle="overflow: visible; text-align: center;" :header="$t('lbl_status')" :sortable="true" filterMatchMode="contains"
                                     bodyStyle="text-align: center; overflow: visible;">
                                 <template #body="slotProps">
                                     <span>{{ getStatusDesc(slotProps.data.status)   }}</span>
                                 </template>
                             </Column>
 
-                            <Column :header="$t('contract.lbl_initial_date')">
+                            <Column :header="$t('contract.lbl_initial_date')" headerStyle="text-align: center;" bodyStyle="text-align: center;" >
                                 <template #body="slotProps">
                                     <span>{{ slotProps.data.initialDate | formatDate }}</span>
                                 </template>
                             </Column>
-                            <Column :header="$t('contract.lbl_final_date')">
+                            <Column :header="$t('contract.lbl_final_date')"  bodyStyle="text-align: center;" >
                                 <template #body="slotProps">
                                     <span>{{ slotProps.data.finalDate | formatDate }}</span>
                                 </template>

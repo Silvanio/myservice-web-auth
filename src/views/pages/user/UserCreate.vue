@@ -12,14 +12,14 @@
                 <div class="p-fluid p-formgrid p-grid">
 
                     <div class="p-field p-col-12 p-md-3">
-                        <label required for="companyComplete">{{ $t('menu.lbl_company')}}</label>
-                        <AutoComplete id="companyComplete"  v-if="!this.isCompanyClient"  :minLength="4" v-model="entity.company" :suggestions="companyList"
+                        <label required for="companyComplete" v-tooltip.left="$t('msg_field_autocomplete')"         >{{ $t('menu.lbl_company')}}</label>
+                        <AutoComplete id="companyComplete" v-if="!this.isCompanyClient" :minLength="4" v-model="entity.company" :suggestions="companyList"
                                       @complete="findCompanyByName($event)" field="name"
                                       @item-select="findModules($event)"
                                       :class="{'p-invalid' :$v.entity.company.id.$invalid && submitted}"/>
-                        <InputText id="companyText" v-if="this.isCompanyClient"  disabled autocomplete="off" v-model="entity.company.name" type="text" />
+                        <InputText id="companyText" v-if="this.isCompanyClient" disabled autocomplete="off" v-model="entity.company.name" type="text"/>
 
-                        <small   v-if="!this.isCompanyClient" v-show="$v.entity.company.id.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
+                        <small v-if="!this.isCompanyClient" v-show="$v.entity.company.id.$invalid && submitted" class="p-error">{{ $t('msg_required') }}</small>
                     </div>
 
                     <div class="p-field p-col-12 p-md-3">
@@ -37,7 +37,7 @@
 
                     <div class="p-field p-col-12 p-md-3">
                         <label required for="emailUserForm">{{ $t('user.lbl_email')}}</label>
-                        <InputText id="emailUserForm"  autocomplete="off" v-model="entity.email" type="text"
+                        <InputText id="emailUserForm" autocomplete="off" v-model="entity.email" type="text"
                                    :class="{'p-invalid' :$v.entity.email.$invalid && submitted}"/>
                         <small v-show="$v.entity.email.$invalid && submitted" class="p-error">{{$t('msg_required')}}</small>
                     </div>
@@ -56,22 +56,30 @@
                     </div>
 
                     <div class="p-field p-col-12 p-md-12">
-                        <div v-for="item in appModuleList" :key="item.name">
-                            <Panel>
-                                <template #header>
-                                    <span class="picklist-title">{{ item.description }}</span>
-                                    <span class="picklist-subtitle"></span>
-                                </template>
-                                <DataTable :value="item.authorities" :selection.sync="item.selectedAuthorities"
-                                           :paginator="true" :rows="10">
-                                    <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
 
-                                    <Column field="shortDescription" header="Name"></Column>
-                                    <Column field="description" header="Descrição"></Column>
-                                </DataTable>
-                            </Panel>
-                            <br>
-                        </div>
+
+                        <Accordion>
+                            <div v-for="(item, index)  in appModuleList" :key="item.name">
+
+                                <AccordionTab :active="index == 0">
+                                    <template slot="header">
+                                        <span class="picklist-title">{{ item.description }}</span>
+                                        <span class="picklist-subtitle"></span>
+                                    </template>
+                                    <DataTable class="p-datatable-responsive p-datatable-sm p-datatable-striped p-datatable-gridlines"
+                                               :value="item.authorities" :selection.sync="item.selectedAuthorities"
+                                               :paginator="true" :rows="10">
+                                        <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
+
+                                        <Column field="shortDescription" header="Name"></Column>
+                                        <Column field="description" header="Descrição"></Column>
+                                    </DataTable>
+                                </AccordionTab>
+                                <br>
+                            </div>
+
+                        </Accordion>
+
 
 
                     </div>
@@ -145,7 +153,7 @@
             },
             async initCreate() {
                 const user = await userService.getCurrentUserInfo();
-                if(user.company.client == true){
+                if (user.company.client == true) {
                     this.entity.company = user.company;
                     this.isCompanyClient = true;
                     this.findModules(null);

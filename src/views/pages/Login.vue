@@ -230,7 +230,9 @@
     }
     @media (max-width: 1024px) {
         .margin-phone {
-            margin: 20px !important;
+            margin-right: 15px !important;
+            margin-left: 30px !important;
+
         }
         .margin-top{
             padding-top: 120px;

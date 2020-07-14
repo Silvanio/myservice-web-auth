@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router'
 
 import './assets/theme.css';
-import 'primevue/resources/themes/bootstrap4-light-blue/theme.css';
 
 import 'primevue/resources/primevue.min.css';
 import 'primeflex/primeflex.css';
@@ -90,6 +89,7 @@ Vue.component('Fieldset', Fieldset);
 Vue.use(Vuelidate)
 Vue.use(ToastService);
 Vue.use(VueI18n)
+Vue.prototype.$primevue = {ripple: true};
 
 Vue.config.productionTip = false
 Vue.prototype.$mystory = store;

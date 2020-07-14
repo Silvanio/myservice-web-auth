@@ -8,10 +8,10 @@
 
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12">
-                        <DataTable class="p-datatable-responsive" :value="page.content" :lazy="true" :filters="pageable.entity" :paginator="true" :rows="10"
+                        <DataTable class="p-datatable-responsive p-datatable-sm p-datatable-striped p-datatable-gridlines" :value="page.content" :lazy="true" :filters="pageable.entity" :paginator="true" :rows="10"
                                    :totalRecords="page.totalElements" @filter="onPage($event)" @page="onPage($event)" @sort="onPage($event)">
 
-                            <Column field="company.name" :header="$t('menu.lbl_company')" :sortable="true">
+                            <Column field="company.name" :header="$t('menu.lbl_company')" :sortable="true"  headerStyle="text-align: center;" bodyStyle="text-align: center;">
                                 <template #body="slotProps">
                                     <span>{{ slotProps.data.company.name  }}</span>
                                 </template>

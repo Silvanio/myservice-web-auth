@@ -36,11 +36,12 @@
 
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12">
-                        <DataTable class="p-datatable-responsive" :value="page.content" :lazy="true" :filters="pageable.entity" :paginator="true" :rows="10"
+                        <DataTable class="p-datatable-responsive p-datatable-striped p-datatable-gridlines p-datatable-sm "
+                                   :value="page.content" :lazy="true" :filters="pageable.entity" :paginator="true" :rows="10"
                                    :totalRecords="page.totalElements" @filter="onPage($event)" @page="onPage($event)" @sort="onPage($event)">
 
                             <Column field="code" :header="$t('company.lbl_code')" :sortable="true" filterMatchMode="contains"
-                                    headerStyle="text-align: center" bodyStyle="text-align: center"></Column>
+                                    headerStyle="text-align: center" bodyStyle="text-align: center"  />
 
                             <Column field="fiscalNumber" :header="$t('company.lbl_fiscalNumber')" :sortable="true" filterMatchMode="contains"
                                     headerStyle="text-align: center" bodyStyle="text-align: center" ></Column>

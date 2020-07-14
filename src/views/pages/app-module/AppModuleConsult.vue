@@ -37,14 +37,15 @@
 
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12">
-                        <DataTable class="p-datatable-responsive" :value="page.content" :lazy="true" :filters="pageable.entity" :paginator="true" :rows="10"
+                        <DataTable class="p-datatable-responsive p-datatable-sm p-datatable-striped p-datatable-gridlines"
+                                   :value="page.content" :lazy="true" :filters="pageable.entity" :paginator="true" :rows="10"
                                    :totalRecords="page.totalElements" @filter="onPage($event)" @page="onPage($event)" @sort="onPage($event)">
 
-                            <Column field="name" :header="$t('module.lbl_name')" :sortable="true" filterMatchMode="contains"></Column>
+                            <Column field="name" :header="$t('module.lbl_name')" :sortable="true" filterMatchMode="contains" headerStyle="text-align: center" bodyStyle="text-align: center;" />
 
-                            <Column field="description" :header="$t('module.lbl_description')" :sortable="true" filterMatchMode="contains"></Column>
+                            <Column field="description" :header="$t('module.lbl_description')" :sortable="true" filterMatchMode="contains" headerStyle="text-align: center" bodyStyle="text-align: center;" />
 
-                            <Column field="status" headerStyle="overflow: visible" :header="$t('lbl_status')" :sortable="true" filterMatchMode="contains"
+                            <Column field="status" headerStyle="overflow: visible;text-align: center" :header="$t('lbl_status')" :sortable="true" filterMatchMode="contains"
                                     bodyStyle="text-align: center; overflow: visible;">
                                 <template #body="slotProps">
                                     <span>{{ getStatusDesc(slotProps.data.status)   }}</span>
