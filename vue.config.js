@@ -1,12 +1,13 @@
 module.exports = {
     devServer: {
-        port: 8080,
+  
+        port: 8083,
         proxy: {
             '/user': {
-                target: 'http://192.168.1.246:9092'
+                target: 'http://localhost:9092'
             },
             '/auth': {
-                target: 'http://192.168.1.246:9092'
+                target: 'http://localhost:9092'
             }
         }
     },

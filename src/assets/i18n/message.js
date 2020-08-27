@@ -45,6 +45,7 @@ module.exports = {
             msg_period_date_invalid:"Período inválido",
             msg_username_exist:"Username já utilizado",
             msg_email_invalid:"E-mail inválido",
+            msg_general_info_not_found:"Informação não encontrada",
             login: {
                 lbl_title: "Autenticação",
                 lbl_company_code: "Código da Empresa",
